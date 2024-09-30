@@ -65,9 +65,20 @@ variable "capabilities" {
   type        = list(any)
 }
 
+# variable "service_launch_type" {
+#   description = "ECS launch type: ECS or FARGATE"
+#   type = string
+# }
+
 variable "service_launch_type" {
-  description = "ECS launch type: ECS or FARGATE"
-  type = string
+  type = list(object({
+    capacity_provider = string
+    weight = number
+  }))
+  default = [ {
+    capacity_provider = "FARGATE_SPOT"
+    weight = 100
+  } ]
 }
 
 variable "service_task_count" {
@@ -107,7 +118,7 @@ variable "scale_out_adjustment" {
   default = 1
 }
 
-variable "sclae_out_comparison_operator" {
+variable "scale_out_comparison_operator" {
   description = "Scale out strategy"
   default = "GreaterThanOrEqualThreshold"
 }
@@ -142,7 +153,7 @@ variable "scale_in_adjustment" {
   default = -1
 }
 
-variable "sclae_in_comparison_operator" {
+variable "scale_in_comparison_operator" {
   description = "Scale in strategy"
   default = "LessThanOrEqualToThreshold"
 }

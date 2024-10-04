@@ -194,3 +194,8 @@ variable "scale_tracking_requests" {
   description = "Number of requests, per second, desired per task"
   default = 0
 }
+
+variable "container_image" {
+  description = "Image with application deployment tag on ECS"
+  type = string
+}

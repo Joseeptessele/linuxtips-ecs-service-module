@@ -1,8 +1,9 @@
-## Lecture 3-4: ECS Service + Module
+## Lecture 3-4-5: ECS Service + Module
 On this lesson we created a module to provision an ECS Service + EC2 and ECS Service + Fargate. We also studied 3 approaches of autoscale: 
 * CPU: Based on cpu percentage
 * CPU Tracking: Based on a measure
 * Requests Tracking: Based on requests each task is receiving
+* How to create a tag from module so it can be referenced when used to create applications from it
 
 ## What I have learned
 * How to use modules on terraform

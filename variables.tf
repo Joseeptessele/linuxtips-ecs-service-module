@@ -199,3 +199,15 @@ variable "container_image" {
   description = "Image with application deployment tag on ECS"
   type = string
 }
+
+variable "efs_volumes" {
+  type = list(object({
+    volume_name : string
+    file_system_id : string
+    file_system_root : string
+    mount_point : string
+    read_only : bool
+  }))
+  description = "Existing EFS volumes to be mounted on ECS tasks"
+  default = []
+}

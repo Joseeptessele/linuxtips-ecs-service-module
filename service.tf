@@ -21,14 +21,14 @@ resource "aws_ecs_service" "main" {
 
     content {
       capacity_provider = capacity_provider_strategy.value.capacity_provider
-      weight = capacity_provider_strategy.value.weight
+      weight            = capacity_provider_strategy.value.weight
     }
   }
 
   dynamic "ordered_placement_strategy" {
     for_each = var.service_launch_type == "EC2" ? [1] : []
     content {
-      type = "spread"
+      type  = "spread"
       field = "attribute:ecs.availability-zone"
     }
   }

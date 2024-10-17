@@ -60,6 +60,15 @@ variable "environment_variables" {
   default     = []
 }
 
+variable "secrets" {
+  description = "List of secrets from parameters store or secrets manager for service "
+  type = list(object({
+    name : string
+    valueFrom : string
+  }))
+  default = []
+}
+
 variable "capabilities" {
   description = "Service capabilities as EC2 or FARGATE"
   type        = list(any)
@@ -73,12 +82,12 @@ variable "capabilities" {
 variable "service_launch_type" {
   type = list(object({
     capacity_provider = string
-    weight = number
+    weight            = number
   }))
-  default = [ {
+  default = [{
     capacity_provider = "FARGATE_SPOT"
-    weight = 100
-  } ]
+    weight            = 100
+  }]
 }
 
 variable "service_task_count" {
@@ -93,111 +102,111 @@ variable "service_hosts" {
 
 variable "scale_type" {
   description = "Value for scale type. Currently supported values are: requests_tracking, cpu and cpu_tracking"
-  default = null
+  default     = null
 }
 
 variable "task_minimum" {
   description = "ECS minimum number of running tasks"
-  default = 3
+  default     = 3
 }
 
 variable "task_maximum" {
   description = "ECS maximum number of running tasks"
-  default = 10
+  default     = 10
 }
 
 ### CPU AUTOSCALING
 
 variable "scale_out_cpu_threshold" {
   description = "CPU percentage threshold to scale out"
-  default = 80
+  default     = 80
 }
 
 variable "scale_out_adjustment" {
   description = "Number of tasks to be incremented during scale out"
-  default = 1
+  default     = 1
 }
 
 variable "scale_out_comparison_operator" {
   description = "Scale out strategy"
-  default = "GreaterThanOrEqualThreshold"
+  default     = "GreaterThanOrEqualThreshold"
 }
 
 variable "scale_out_statistic" {
   description = "Scale out metric statistic"
-  default = "Average"
+  default     = "Average"
 }
 
 variable "scale_out_period" {
   description = "Start of scale out after reaching the threshold"
-  default = 60
+  default     = 60
 }
 
 variable "scale_out_evaluation_periods" {
   description = "The number of periods over which data is compared to the specified threshold"
-  default = 2
+  default     = 2
 }
 
 variable "scale_out_cooldown" {
   description = "Amount of time, in seconds, after a scaling activity completes and before the next scaling activity can start"
-  default = 60
+  default     = 60
 }
 
 variable "scale_in_cpu_threshold" {
   description = "CPU percentage threshold to scale in"
-  default = 30
+  default     = 30
 }
 
 variable "scale_in_adjustment" {
   description = "Number of tasks to be decremented during scale in"
-  default = -1
+  default     = -1
 }
 
 variable "scale_in_comparison_operator" {
   description = "Scale in strategy"
-  default = "LessThanOrEqualToThreshold"
+  default     = "LessThanOrEqualToThreshold"
 }
 
 variable "scale_in_statistic" {
   description = "Scale in metric statistic"
-  default = "Average"
+  default     = "Average"
 }
 
 variable "scale_in_period" {
   description = "Start of scale in after reaching the threshold"
-  default = 120
+  default     = 120
 }
 
 variable "scale_in_evaluation_periods" {
   description = "The number of periods over which data is compared to the specified threshold"
-  default = 3
+  default     = 3
 }
 
 variable "scale_in_cooldown" {
   description = "Amount of time, in seconds, after a scaling in activity completes and before the next scaling in activity can start"
-  default = 120
+  default     = 120
 }
 
 ### Tracking CPU
 variable "scale_tracking_cpu" {
   description = "CPU percentage threshold to scale out when using cpu_tracking scale type"
-  default = 8
+  default     = 8
 }
 
 ### Tracking Requests
 variable "alb_arn" {
   description = "Application load balancer ARN"
-  default = null
+  default     = null
 }
 
 variable "scale_tracking_requests" {
   description = "Number of requests, per second, desired per task"
-  default = 0
+  default     = 0
 }
 
 variable "container_image" {
   description = "Image with application deployment tag on ECS"
-  type = string
+  type        = string
 }
 
 variable "efs_volumes" {
@@ -209,5 +218,5 @@ variable "efs_volumes" {
     read_only : bool
   }))
   description = "Existing EFS volumes to be mounted on ECS tasks"
-  default = []
+  default     = []
 }

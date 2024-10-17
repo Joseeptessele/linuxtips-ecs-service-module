@@ -19,8 +19,8 @@ resource "aws_ecs_task_definition" "main" {
       name = volume.value.volume_name
 
       efs_volume_configuration {
-        file_system_id = volume.value.file_system_id
-        root_directory = volume.value.file_system_root
+        file_system_id     = volume.value.file_system_id
+        root_directory     = volume.value.file_system_root
         transit_encryption = "ENABLED"
       }
     }
@@ -57,11 +57,13 @@ resource "aws_ecs_task_definition" "main" {
           sourceVolume = volume.volume_name
           // place inside container to mount efs
           containerPath = volume.mount_point
-          read_only = volume.read_only
+          read_only     = volume.read_only
         }
       ]
 
       environment = var.environment_variables
+
+      secrets = var.secrets
     }
   ])
 
